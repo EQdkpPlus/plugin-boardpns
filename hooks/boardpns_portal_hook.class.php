@@ -47,7 +47,7 @@ if (!class_exists('boardpns_portal_hook'))
 		$arrBridgeUserdata = $this->getUserdata();
 		if(!$arrBridgeUserdata) return;
 		
-		//$intCacheHit = $this->pdc->get('plugin.boardpns.unread.'.$this->user->id, false, true);
+		$intCacheHit = $this->pdc->get('plugin.boardpns.unread.'.$this->user->id, false, true);
 		if($intCacheHit == null){
 			$intUnreadCount = $objBoardPnClass->getUnreadMessageCount($arrBridgeUserdata);
 			if($intUnreadCount === false) return;
