@@ -47,30 +47,35 @@ if (!class_exists('boardpns_portal_hook'))
 		$arrBridgeUserdata = $this->getUserdata();
 		if(!$arrBridgeUserdata) return;
 		
-		$intCacheHit = $this->pdc->get('plugin.boardpns.unread.'.$this->user->id, false, true);
-		if($intCacheHit == null){
+		$arrCacheHit = $this->pdc->get('plugin.boardpns.unread.'.$this->user->id, false, true);
+		if($arrCacheHit === null){
 			$intUnreadCount = $objBoardPnClass->getUnreadMessageCount($arrBridgeUserdata);
 			if($intUnreadCount === false) return;
-			//3 Minutes Cache Time
-			$this->pdc->put('plugin.boardpns.unread.'.$this->user->id, $intUnreadCount, 60*3, false, true);
 			
 			$strBoardLink = $objBoardPnClass->getLink($arrBridgeUserdata);
 			$strOutLink = $this->getLink($strBoardLink);
 			
-			$strHrefText = '';
-			if($intUnreadCount > 0){
-				$strHrefText .= '<i class="fa fa-lg fa-envelope"></i> '.$this->user->lang('boardpns_messages');
-				$strHrefText .= ' <span class="bubble-red">'.$intUnreadCount.'</span>';
-			} else {
-				$strHrefText .= '<i class="fa fa-lg fa-envelope-o"></i> '.$this->user->lang('boardpns_messages');
-			}
+			//3 Minutes Cache Time
+			$this->pdc->put('plugin.boardpns.unread.'.$this->user->id, array('count' => $intUnreadCount, 'url' => $strOutLink), 60*3, false, true);
 			
-			
-			$strOutLink['text'] = $strHrefText;
-			
-			$strHref = $this->core->createLink($strOutLink);
-			$output = $strHref;
+		} else {
+			$intUnreadCount = (int)$arrCacheHit['count'];
+			$strOutLink  = $arrCacheHit['url'];
 		}
+					
+		$strHrefText = '<span class="boardpn-container '.(($intUnreadCount) ? 'boardpn-new-messages' : 'boardpn-no-new-messages').'">';
+		if($intUnreadCount > 0){
+			$strHrefText .= '<i class="fa fa-lg fa-envelope boardpn-icon"></i> <span class="boardpn-text">'.$this->user->lang('boardpns_messages');
+			$strHrefText .= ' <span class="bubble-red">'.$intUnreadCount.'</span></span>';
+		} else {
+			$strHrefText .= '<i class="fa fa-lg fa-envelope-o boardpn-icon"></i> <span class="boardpn-text">'.$this->user->lang('boardpns_messages').'</span>';
+		}
+		$strHrefText .= '</span>';
+		
+		$strOutLink['text'] = $strHrefText;
+		
+		$strHref = $this->core->createLink($strOutLink);
+		$output = $strHref;
 		
 		$this->tpl->assign_block_vars('personal_area_addition', array(
 			'TEXT' => $output,
