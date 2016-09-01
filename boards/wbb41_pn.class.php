@@ -58,6 +58,10 @@ class wbb41_pn extends gen_class {
 	}
 	
 	public function getLink($arrBridgeUserdata){
-		return $this->config->get('cmsbridge_url').'index.php?conversation-list/';
+		$strURL = $this->config->get('cmsbridge_url');
+		if (substr($strURL, -1) != "/"){
+			$strURL .= '/';
+		}
+		return $strURL.'index.php?conversation-list/';
 	}
 }

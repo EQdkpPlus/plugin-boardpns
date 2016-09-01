@@ -33,6 +33,11 @@ class phpbb31_pn extends gen_class {
 	}
 	
 	public function getLink($arrBridgeUserdata){
-		return $this->config->get('cmsbridge_url').'ucp.php?i=pm&folder=inbox';
+		$strURL = $this->config->get('cmsbridge_url');
+		if (substr($strURL, -1) != "/"){
+			$strURL .= '/';
+		}
+		
+		return $strURL.'ucp.php?i=pm&folder=inbox';
 	}
 }

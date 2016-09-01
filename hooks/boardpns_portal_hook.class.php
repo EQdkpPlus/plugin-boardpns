@@ -65,10 +65,10 @@ if (!class_exists('boardpns_portal_hook'))
 					
 		$strHrefText = '<span class="boardpn-container '.(($intUnreadCount) ? 'boardpn-new-messages' : 'boardpn-no-new-messages').'">';
 		if($intUnreadCount > 0){
-			$strHrefText .= '<i class="fa fa-lg fa-envelope boardpn-icon"></i> <span class="boardpn-text">'.$this->user->lang('boardpns_messages');
+			$strHrefText .= '<i class="fa fa-lg fa-envelope boardpn-icon"></i> <span class="boardpn-text hiddenSmartphone">'.$this->user->lang('boardpns_messages');
 			$strHrefText .= ' <span class="bubble-red">'.$intUnreadCount.'</span></span>';
 		} else {
-			$strHrefText .= '<i class="fa fa-lg fa-envelope-o boardpn-icon"></i> <span class="boardpn-text">'.$this->user->lang('boardpns_messages').'</span>';
+			$strHrefText .= '<i class="fa fa-lg fa-envelope-o boardpn-icon"></i> <span class="boardpn-text hiddenSmartphone">'.$this->user->lang('boardpns_messages').'</span>';
 		}
 		$strHrefText .= '</span>';
 		
