@@ -33,7 +33,7 @@ if (!defined('EQDKP_INC'))
 class boardpns extends plugin_generic
 {
 
-  public $version    = '0.1.1';
+  public $version    = '0.2.1';
   public $build      = '';
   public $copyright  = 'GodMod';
   
@@ -59,12 +59,12 @@ class boardpns extends plugin_generic
       'long_description'  => $this->user->lang('boardpns_long_desc'),
       'homepage'          => EQDKP_PROJECT_URL,
       'manuallink'        => false,
-      'plus_version'      => '2.0',
+      'plus_version'      => '2.3',
       'build'             => $this->build,
     ));
 
     $this->add_dependency(array(
-      'plus_version'      => '2.0'
+      'plus_version'      => '2.3'
     ));
 
 	$this->add_permission('u', 'view',    'Y', $this->user->lang('boardpns_view'),    array(2,3,4));
