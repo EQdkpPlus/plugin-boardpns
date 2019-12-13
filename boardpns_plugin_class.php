@@ -33,7 +33,7 @@ if (!defined('EQDKP_INC'))
 class boardpns extends plugin_generic
 {
 
-  public $version    = '0.2.1';
+  public $version    = '0.2.2';
   public $build      = '';
   public $copyright  = 'GodMod';
   
